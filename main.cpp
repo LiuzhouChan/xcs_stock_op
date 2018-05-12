@@ -5,7 +5,7 @@
 using namespace std;
 
 int main(){
-    auto data=getData("000001.XSHE.csv");
+    auto data=getData("000002.XSHE.csv");
     // cout<<data->size()<<endl;
     for(auto i=(*data)[0]->begin();i!= (*data)[0]->end();i++)
     {
