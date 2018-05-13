@@ -16,7 +16,7 @@ set(CMAKE_CXX_COMPILER "clang++")
 set(CMAKE_CXX_FLAGS "-std=c++11 -pthread")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-add_executable(xcs_stock_op_project account.cpp main.cpp util.cpp)
+add_executable(xcs_stock_op_project account.cpp main.cpp util.cpp config_magr2.cpp generic.cpp)
 
 add_executable(account_test account.cpp account_test.cpp)
 target_link_libraries(account_test gtest)
