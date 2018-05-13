@@ -81,3 +81,34 @@ std::string trim(std::string const& source, char const* delims)
 		result.erase();
 	return result;
 }
+
+std::string long2binary(const unsigned long decimal, unsigned long size)
+{
+	std::string::size_type	bit;
+	std::string			binary;
+	unsigned long		base = 1;
+
+	base <<= size;
+	for (bit=0; bit<size; bit++)
+	{
+		base >>= 1;
+		binary += '0'+((decimal & base)>0);
+	};
+	return binary;
+}
+
+
+
+unsigned long binary2long(const std::string &binary)
+{
+	unsigned long		power = 1;
+	unsigned long		integer = 0;
+	std::string::size_type	bit;
+
+	for(bit=0; bit<binary.size(); bit++)
+	{
+		integer += (binary[binary.size()-bit-1]-'0') * power;
+		power *= 2;
+	}
+	return integer;
+}

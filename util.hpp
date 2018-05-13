@@ -12,4 +12,8 @@ void error(std::string name, std::string method, std::string message, unsigned i
 
 std::string trim(std::string const& source, char const* delims = " \t\r\n");
 
+std::string long2binary(const unsigned long, unsigned long);
+
+unsigned long binary2long(const std::string &binary);
+
 #endif // !XCS_UTIL_HPP
