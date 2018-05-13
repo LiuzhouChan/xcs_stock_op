@@ -27,7 +27,7 @@ void account::order_lots(double price, int64_t amount)
             // the money is enough
             money_ -= total_price;
             stock_number_ += amount;
-            logger_->info("Buy {} amount:{} the remain money {} the remain stock lot:{}", stock_name_, amount, money_, stock_number_);
+            logger_->info("Buy {} amount:{} the remain money:{} the remain stock lot:{}", stock_name_, amount, money_, stock_number_);
         }
     }
     else
@@ -43,7 +43,7 @@ void account::order_lots(double price, int64_t amount)
             // the stock is enough
             stock_number_ -= amount;
             money_ += price * amount * 100;
-            logger_->info("Sell {} amount:{} the remain money{} the remain stock lot:{}",stock_name_, amount, money_, stock_number_);
+            logger_->info("Sell {} amount:{} the remain money:{} the remain stock lot:{}",stock_name_, amount, money_, stock_number_);
         }
     }
 }
@@ -64,7 +64,7 @@ void account::order_target_percent(double price, double percent)
     int64_t amount_to_adjust = (int64_t)std::floor(total_value*std::abs(position_to_adjust)/(price *100));
     if(amount_to_adjust == 0)
     {
-        logger_->info("The diff is less then a log and this order will be discarded");
+        logger_->info("The diff is less then a lot and this order will be discarded");
         return;
     }
 
