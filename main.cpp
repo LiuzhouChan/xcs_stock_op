@@ -6,9 +6,8 @@
 using namespace std;
 
 int main(){
-
-    cout<<std::floor(1.1)<<endl;
-    cout<<(std::floor(0.1)==0)<<endl;
+    // auto x=getData("000001.XSHE.csv");
+    error("main","main","the error of main test",1);
     // cout<<std::ceil(1.1)<<endl;
     return 0;
  }

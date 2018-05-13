@@ -7,7 +7,6 @@
 #include <vector>
 #include <map>
 #include <memory>
-
 //vector< <map<string, double> >
 std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>> getData(const std::string& filePath)
 {
@@ -48,4 +47,37 @@ std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>> get
         data->push_back(lineData);
     }
     return data;
+}
+
+
+
+void error(std::string name, std::string method, std::string message, unsigned int exit_code)
+{
+	std::cerr << "\n\a***\tERROR";
+	std::cerr <<   "\n***\tCLASS:  \t" << name;
+	std::cerr <<   "\n***\tMETHOD: \t" << method;
+	std::cerr <<   "\n***\tMESSAGE:\t" << message << "." << std::endl << std::endl;
+	if (exit_code>0)
+	{
+		exit(exit_code);
+	}
+}
+
+
+std::string trim(std::string const& source, char const* delims)
+{
+	std::string result(source);
+	std::string::size_type index = result.find_last_not_of(delims);
+
+	if(index != std::string::npos)
+	{
+		result.erase(++index);
+	}
+
+	index = result.find_first_not_of(delims);
+	if(index != std::string::npos)
+		result.erase(0, index);
+	else
+		result.erase();
+	return result;
 }

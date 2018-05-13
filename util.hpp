@@ -6,4 +6,10 @@
 #include <vector>
 
 std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>> getData(const std::string& filePath="000001.XSHE.csv");
+
+
+void error(std::string name, std::string method, std::string message, unsigned int exit_code);
+
+std::string trim(std::string const& source, char const* delims = " \t\r\n");
+
 #endif // !XCS_UTIL_HPP
