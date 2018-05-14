@@ -112,3 +112,16 @@ unsigned long binary2long(const std::string &binary)
 	}
 	return integer;
 }
+
+
+
+void set_flag(std::string set, bool& var)
+{
+	if ((set=="on")||(set=="ON"))
+		var = true;
+	else if ((set=="off")||(set=="OFF"))
+		var = false;
+	else {
+		error("xcs_utility", "set_flag", "value must be 'on' or 'off'", 1);
+	}
+}

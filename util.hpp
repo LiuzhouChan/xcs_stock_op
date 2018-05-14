@@ -16,4 +16,6 @@ std::string long2binary(const unsigned long, unsigned long);
 
 unsigned long binary2long(const std::string &binary);
 
+void set_flag(std::string set, bool& var);
+
 #endif // !XCS_UTIL_HPP
