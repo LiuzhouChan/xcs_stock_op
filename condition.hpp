@@ -54,34 +54,28 @@ public:
 	 */
 	ternary_condition();
 
-	//
-	//	class destructor
-	//
-	
-	//! Default destructor for the ternary condition class
+
 	~ternary_condition() = default;
 	
 	//	
 	//	comparison operators
 	//	
 	
-	//! less than operator
+
 	bool operator< (const ternary_condition& cond) const;
 
-	//! equality operator
+
 	bool operator==(const ternary_condition& cond) const;
 
-	//! inequality operator
 	bool operator!=(const ternary_condition& cond) const;
 
 	//
 	//	assignment operators
 	//
 	
-	//! assignment operator
+
 	ternary_condition& operator=(ternary_condition& cond); 
 
-	//! assignment operator for a constant value
 	ternary_condition& operator=(const ternary_condition& cond);
 
 	// 
@@ -119,6 +113,20 @@ public:
 	//! pretty print the condition to the output stream "output".
 	void print(std::ostream& output) const { output << bitstring; };
 
+    friend std::ostream& operator<<(std::ostream& output, const ternary_condition& cond)
+	{
+		output << cond.string_value();
+		return (output);
+	};
+
+	//! read the condition from an input stream 
+	friend std::istream& operator>>(std::istream& input, ternary_condition& cond)
+	{
+		std::string	str;
+		input >> str;
+		cond.set_string_value(str);
+		return (input);
+	};
 
 	//! true if the representation allow the use of GA subsumption
 	virtual bool allow_ga_subsumption() {return true;};
