@@ -449,7 +449,7 @@ void xcs_classifier_system::build_prediction_array()
 	}
 };
 
-void	xcs_classifier_system::select_action(const t_action_selection policy, binary_action& act)
+void xcs_classifier_system::select_action(const t_action_selection policy, binary_action& act)
 {
 	static unsigned long		stat_rnd = 0;
 	vector<unsigned long>::iterator	best;
