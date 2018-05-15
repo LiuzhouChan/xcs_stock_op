@@ -515,7 +515,7 @@ private:
 
  private:
 	//! configuration
-	const std::string	configuration[];
+	// const std::string	configuration[]; 
 
  private:
  	//! new random init procedure
