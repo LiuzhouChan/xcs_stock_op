@@ -6,8 +6,7 @@ unsigned int		xcs_classifier::output_precision = 5;
 
 
 //! class constructor
-xcs_classifier::xcs_classifier(config_mgr2& config):
-	condition(ternary_condition(config)), action(binary_action(config))
+xcs_classifier::xcs_classifier()
 {
 	set_initial_values();
 }

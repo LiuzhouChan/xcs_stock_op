@@ -27,7 +27,7 @@ class xcs_classifier
 
  public:
 	//! class constructor
-	xcs_classifier(config_mgr2& config);
+	xcs_classifier();
 
 	//! class constructor
 	xcs_classifier(const xcs_classifier&);
