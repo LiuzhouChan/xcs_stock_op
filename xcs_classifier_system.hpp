@@ -526,7 +526,7 @@ private:
 
  private:
 	//! new configuration parameters 2003/05/06
-
+	config_mgr2 config_;
 	bool			flag_use_mam;
 	bool			flag_ga_tournament_selection;
 	bool			flag_tournament_on_fitness;

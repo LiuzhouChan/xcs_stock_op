@@ -5,31 +5,42 @@
 #include <sstream>
 #include <string>
 #include <cassert>
+#include <spdlog/spdlog.h>
+#include <memory>
+#include <fstream>
+#include <iostream>
 
-#include "environment_base.hpp"
 #include "config_magr2.hpp"
+#include "account.hpp"
+#include "binary_action.hpp"
+#include "binary_input.hpp"
+#include "util.hpp"
 
-class stock_env: public virtual environment_base
+class stock_env
 {
 public: 
 
 	std::string class_name() const { return std::string("stock_env"); };
 	std::string tag_name() const { return std::string("environment::stock_env"); };
 
-    stock_env(config_mgr2&);
-    ~stock_env() = default;
+    stock_env(config_mgr2&,std::shared_ptr<spdlog::logger> logger = spdlog::stdout_color_mt("stockenv"));
+
+    ~stock_env() {};
 
     void begin_problem(const bool explore);
-	void end_problem() {};
+	void end_problem() { current_state_ = data_->size()-2;};
 
 	void begin_experiment() {};
 	void end_experiment() {};
 
-	bool stop() const;
+    bool single_step() const {return true;};
+	//! writes trace information on an output stream; it is called just before the end_problem method \sa end_problem
+	void trace(std::ostream& output){output << account_path;}
+
+	bool stop() const {return current_state_ == data_->size()-2;}
 	
 	void perform(const binary_action& action);
 
-	void trace(std::ostream& output) const;
 
 	bool allow_test() const {return true;};
 	void reset_problem();
@@ -44,37 +55,29 @@ public:
 
     virtual double reward() const { assert(current_reward==stock_env::current_reward); return current_reward;};
 	virtual binary_inputs state() const { return inputs; };
-	virtual void print(std::ostream& output) const { output << current_state << "\t";};
+	virtual void print(std::ostream& output) const { output << current_state_ << "\t";};
 private:
-    inline void	set_state();
+    inline void	set_input(int64_t pos); //the pos must bigger than 0
+    inline void updateAccountPath(double price)
+    {
+        std::ostringstream PATH; 
+        PATH<<account_.getMoney()+account_.getStockAmount()*price<<"\t";
+        account_path += PATH.str();
+    }
 	
 	static bool			init;			//!< true if the class has been inited through the configuration manager
 	binary_inputs		inputs;			//!< current input configuration
 	
-	long 				states_number;		//! number of states in the environment
-	long				state_bits;		//! number of bits to encode the states
-	long				final_state;		//! final state in the environment
 
-        //! current reward returned for the last action performed
 	double		current_reward;
-	//unsigned long	no_configurations;			// #configurazioni possibili
 
-	//! \var current_configuration index of the current agent's input
-	/*!
-	 * it is used when scanning all the possible environment configurations with 
-	 * the functions \fn reset_input and \fn next_input
-	 * \sa reset_input
-	 * \sa next_input
-	 */
-	
-        //! current x position in the environment
-	unsigned long 	current_state;
-         	
-        //! \var prob_slide specifies the probability that the agent can slip while it moves (Colombetti and Lanzi 1999)
-	double		prob_slide; 
-	
-	//! path traces the path the agent followed during the problem
-	std::string			path;
+	account account_;
+
+    int64_t current_state_;
+    std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>> data_;
+    std::shared_ptr<spdlog::logger> logger_;
+    std::string account_path;
 };
 
+double getValue(std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>>const &data_, int64_t pos, std::string const & key);
 #endif // !XCS_STOCK_ENV_HPP

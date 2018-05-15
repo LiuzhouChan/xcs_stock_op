@@ -73,7 +73,7 @@ istream& operator>>(istream& input, xcs_statistics& stats)
 	return (input);
 }
 
-xcs_classifier_system::xcs_classifier_system(config_mgr2& xcs_config, std::shared_ptr<spdlog::logger> logger)
+xcs_classifier_system::xcs_classifier_system(config_mgr2& xcs_config, std::shared_ptr<spdlog::logger> logger):config_(xcs_config)
 {
     logger_=logger;
 	delta_del = .1;
@@ -234,7 +234,6 @@ void xcs_classifier_system::set_deletion_strategy(const char* deleteType)
 
 void xcs_classifier_system::init_classifier_set()
 {
-	xcs_classifier classifier;
 	switch (population_init)
 	{
 		//! [P] = {}
@@ -274,7 +273,7 @@ void xcs_classifier_system::insert_classifier(xcs_classifier& new_cl)
 	///END CHECK
 
 	/// keep a sorted index of classifiers
-	xcs_classifier *clp = new xcs_classifier;
+	xcs_classifier *clp = new xcs_classifier(config_);
 
 	*clp = new_cl;
 
@@ -350,7 +349,7 @@ bool xcs_classifier_system::perform_standard_covering(t_classifier_set &match_se
 {
 	if ((match_set.size()==0) || need_standard_covering(match_set, detectors))
 	{
-		xcs_classifier	classifier;
+		xcs_classifier	classifier(config_);
 
 		//! create a covering classifier
 		classifier.cover(detectors);
@@ -631,8 +630,8 @@ xcs_classifier_system::genetic_algorithm(t_classifier_set &action_set, const bin
 	t_set_iterator 	parent1;
 	t_set_iterator	parent2;
 
-	xcs_classifier	offspring1;
-	xcs_classifier	offspring2;
+	xcs_classifier	offspring1(config_);
+	xcs_classifier	offspring2(config_);
 
 
 	t_set_iterator	as;
@@ -932,7 +931,7 @@ void xcs_classifier_system::restore_state(istream& input)
 	
 	population.clear();
 	
-    xcs_classifier in_classifier;
+    xcs_classifier in_classifier(config_);
 	population_size = 0;
 	macro_size = 0;
 
@@ -1027,7 +1026,7 @@ bool xcs_classifier_system::perform_nma_covering(t_classifier_set &match_set, co
 			//! 
 			if (pr->n==0)
 			{
-				xcs_classifier	classifier;
+				xcs_classifier	classifier(config_);
 				
 				classifier.cover(detectors);
 				classifier.action = pr->action;
@@ -1147,7 +1146,7 @@ void xcs_classifier_system::clear_population()
 void  xcs_classifier_system::print_set(t_classifier_set &set, ostream& output) 
 {
 	t_set_const_iterator	pp;
-	xcs_classifier	cl;
+	xcs_classifier	cl(config_);
 
 	output << "================================================================================" << endl;
 	for(pp=set.begin(); pp!=set.end(); pp++)
@@ -1491,7 +1490,7 @@ void xcs_classifier_system::init_population_random()
 	check.start();
 	for(cl=0; cl<max_population_size; cl++)
 	{
-		xcs_classifier *classifier = new xcs_classifier();
+		xcs_classifier *classifier = new xcs_classifier(config_);
 		classifier->random();
 		init_classifier(*classifier);
 		insert_classifier(*classifier);
@@ -1554,7 +1553,7 @@ void xcs_classifier_system::init_population_load(string filename)
 		logger_->error("class:{} method: {} msg: {}", class_name(), "init_population_load", "file <"+filename+"> not found");
         exit(1);
 	}
-	xcs_classifier	in_classifier;
+	xcs_classifier	in_classifier(config_);
 	unsigned long	n = 0;
 	macro_size = 0;
 	population_size = 0;

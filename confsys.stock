@@ -1,0 +1,70 @@
+<random>
+	seed = 0
+</random>
+
+<condition::ternary>
+	condition size = 5
+	dontcare probability = 0.5
+	mutate with dontcare = on
+	crossover method = 1
+	mutation method = 2
+</condition::ternary>
+
+<action::binary>
+    number of bits = 4
+</action::binary>
+
+<environment::stock_env>
+    stock data file = 000001.XSHE.csv
+</environment::stock_env>
+
+
+<classifier_system>
+      population size = 500
+        learning rate = 0.2
+      discount factor = 0.7
+    covering strategy = action_based 0
+  discovery component = on
+             theta GA = 25
+crossover probability = 0.8
+ mutation probability = 0.04
+         epsilon zero = 10
+                   vi = 5
+                alpha = 0.1
+      prediction init = 10.0
+           error init = 0.0
+         fitness init = 0.01
+        set size init = 1
+      population init = empty
+ exploration strategy = PROPORTIONAL
+    deletion strategy = ACCURACY-BASED
+         theta delete = 20
+         theta GA sub = 20
+         theta AS sub = 100
+       GA subsumption = on
+       AS subsumption = off
+   update error first = on
+              use MAM = on
+GA tournament selection = off
+      tournament size = 0.4
+</classifier_system>
+
+<experiments>
+	first experiment = 0
+	number of experiments = 10
+        first problem = 0
+        number of learning problems = 200000
+	number of condensation problems = 0
+        number of test problems = 0
+	test environment = off
+	save state every = 0
+        trace experiments = off
+        save population state = on
+        save population report = on
+        save experiment state = on
+	trace time = on
+	compact mode = off
+	save statistics every = 100
+        save learning problems = on
+	maximum number of steps = 100
+</experiments>
