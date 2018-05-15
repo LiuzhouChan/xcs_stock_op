@@ -79,3 +79,15 @@ void account::order_target_percent(double price, double percent)
     }
 }
 
+void account::order_percent(double price, double percent)
+{
+    if(percent >= 0)// buy stock
+    {
+        int lots =(int)std::floor(money_*percent/(price*100));
+        order_lots(price,lots);
+    }else   // sell stock
+    {
+        int lots = std::floor(stock_number_*percent);
+        order_lots(price, -lots);
+    }
+}

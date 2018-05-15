@@ -16,6 +16,9 @@
 #include "binary_input.hpp"
 #include "util.hpp"
 
+
+double getValue(std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>>const &data_, int64_t pos, std::string const & key);
+
 class stock_env
 {
 public: 
@@ -43,11 +46,25 @@ public:
 
 
 	bool allow_test() const {return true;};
-	void reset_problem();
-	bool next_problem();
+	void reset_problem() { reset_input();};
+	bool next_problem() { reset_problem();};
 
-	void reset_input();
-	bool next_input();
+	void reset_input()
+    {
+        current_state_ = 1; 
+        set_input(current_state_);
+        account_= account("000001");
+        account_.addMoney(1000000);
+    }
+	bool next_input()
+    {
+        updateAccountPath(getValue(data_, current_state_,"close"));
+
+        if(current_state_==data_->size()-2) return false;
+        current_state_++;
+        set_input(current_state_);
+        return true;
+    }
 
 	void save_state(std::ostream& output) const;
 	void restore_state(std::istream& input);
@@ -57,7 +74,7 @@ public:
 	virtual binary_inputs state() const { return inputs; };
 	virtual void print(std::ostream& output) const { output << current_state_ << "\t";};
 private:
-    inline void	set_input(int64_t pos); //the pos must bigger than 0
+    void set_input(int64_t pos); //the pos must bigger than 0
     inline void updateAccountPath(double price)
     {
         std::ostringstream PATH; 
@@ -79,5 +96,4 @@ private:
     std::string account_path;
 };
 
-double getValue(std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>>const &data_, int64_t pos, std::string const & key);
 #endif // !XCS_STOCK_ENV_HPP

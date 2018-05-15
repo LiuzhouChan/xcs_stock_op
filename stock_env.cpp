@@ -38,7 +38,7 @@ void stock_env::begin_problem(const bool explore)
 }
 
 
-void stock_env::set_input(int64_t pos) //the pos must bigger than 0
+inline void stock_env::set_input(int64_t pos) //the pos must bigger than 0
 {
     std::string input("");
     if(getValue(data_,pos,"close") >= getValue(data_, pos-1,"close"))
@@ -95,5 +95,40 @@ double getValue(std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string
 
 void stock_env::perform(const binary_action& action)
 {
+    std::string action_str = action.string_value();
+    bool buy = action_str[0] == '0'? false:true;
+    double percent(0);
+    for(int i=1;i<4;i++)
+    {
+        percent = percent*2 + (action_str[i]-'0');
+    }
+    double target_percnet = percent/7;
+
+    // set the reward
+    double diff = getValue(data_,current_state_+1,"close")-getValue(data_,current_state_,"close");
     
+    if(percent != 0 && buy)
+    {
+        current_reward = diff * percent * account_.getMoney()/getValue(data_, current_state_,"close");
+    }
+    else if(percent != 0 && !buy)
+    {
+        current_reward = -diff*percent*account_.getStockAmount()*100;
+    }
+
+    if(!buy) target_percnet = -target_percnet;
+    // perform action on the env
+    account_.order_percent(getValue(data_, current_state_,"close"), target_percnet);
+}
+
+void stock_env::save_state(std::ostream& output) const
+{
+    output<<std::endl;
+    output<< current_state_<<std::endl;
+}
+
+void stock_env::restore_state(std::istream& input)
+{
+    input >> current_state_;
+    set_input(current_state_);
 }

@@ -15,6 +15,7 @@ public:
     void addMoney(double money){ money_+=money; }
     void order_lots(double price, int64_t amount);
     void order_target_percent(double price, double percent);
+    void order_percent(double price, double percent);
     double getMoney() { return money_; }
     int64_t getStockAmount() { return stock_number_; }
     double getValue(double price) { return money_+stock_number_*price; }
