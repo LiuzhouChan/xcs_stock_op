@@ -47,7 +47,7 @@ public:
 
 	bool allow_test() const {return true;};
 	void reset_problem() { reset_input();};
-	bool next_problem() { reset_problem();};
+	bool next_problem() { return next_input();};
 
 	void reset_input()
     {

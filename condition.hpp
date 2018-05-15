@@ -1,5 +1,6 @@
 
 #ifndef XCS_CONDITION_HPP
+#define XCS_CONDITION_HPP
 #include <string>
 #include "config_magr2.hpp"
 #include "binary_input.hpp"

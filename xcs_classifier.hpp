@@ -79,17 +79,12 @@ class xcs_classifier
 	//! assignment operator for a constant value
 	xcs_classifier& operator=(const xcs_classifier&);
 
-	//! return the label associated with the element in position fld returned by the stream operator
-	std::string	stream_field(unsigned long fld) {};
-
 	//! write the classifier to an output stream
 	friend std::ostream& operator <<(std::ostream&, const xcs_classifier&);
 
 	//! read the classifier from an input stream
 	friend std::istream& operator >>(std::istream&, xcs_classifier&);
 
-	//! return the label associated with the element in position fld returned by the stream operator
-	std::string	print_field(unsigned long fld) {};
 
 	//! pretty print the classifier on the output stream named "output"
 	void print(std::ostream& output) const;

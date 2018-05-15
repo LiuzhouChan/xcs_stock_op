@@ -7,7 +7,7 @@
 #include "xcs_random.hpp"
 #include "config_magr2.hpp"
 #include "binary_action.hpp"
-#include "condition.hpp"
+
 #include "binary_input.hpp"
 #include "xcs_classifier.hpp"
 #include "stock_env.hpp"

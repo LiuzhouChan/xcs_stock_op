@@ -7,6 +7,9 @@
 #include <ctime>
 #include <sys/times.h>
 #include <iomanip>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>> getData(const std::string& filePath="000001.XSHE.csv");
 
