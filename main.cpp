@@ -39,14 +39,12 @@ int main(){
     do{
         xcs->step(true,false);
     }while(environment->next_input());
-    stringstream ss;
 
-    xcs->trace(ss);
+    environment->trace("stock_account_info.txt");
 
     xcs->end_problem();
 
     environment->end_problem();
 
-    logger->info(ss.str());
     return 0;
  }

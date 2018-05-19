@@ -1,5 +1,5 @@
 <random>
-	seed = 0
+	seed = 0.9
 </random>
 
 <condition::ternary>
@@ -15,18 +15,18 @@
 </action::binary>
 
 <environment::stock_env>
-    stock data file = /home/liu/毕业设计/code/000001.XSHE.csv
+    stock data file = /home/liu/毕业设计/code/000002.XSHE.csv
 </environment::stock_env>
 
 
 <classifier_system>
-      population size = 200
-        learning rate = 0.3
+      population size = 50
+        learning rate = 0.2
       discount factor = 0.7
     covering strategy = action_based 0
   discovery component = on
-             theta GA = 25
-crossover probability = 0.8
+             theta GA = 10
+crossover probability = 0.1
  mutation probability = 0.04
          epsilon zero = 10
                    vi = 5
@@ -39,7 +39,7 @@ crossover probability = 0.8
  exploration strategy = RANDOM
     deletion strategy = ACCURACY-BASED
          theta delete = 20
-         theta GA sub = 50
+         theta GA sub = 20
          theta AS sub = 50
        GA subsumption = on
        AS subsumption = off

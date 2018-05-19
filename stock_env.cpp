@@ -7,7 +7,9 @@ bool stock_env::init = false;
 
 stock_env::stock_env(config_mgr2& xcs_config,std::shared_ptr<spdlog::logger> logger):
     current_reward(0),account_(account("000001")),account_com_(account("000001",spdlog::stdout_color_mt("account_com_"))),
-    current_state_(0), logger_(logger),account_path(std::string(""))
+    current_state_(0), logger_(logger),account_path(std::string("")),
+    account_stock_num_path(std::string("")),account_com_path(std::string("")),
+    account_com_stock_num_path(std::string(""))
 {
     if(!stock_env::init)
     {
@@ -134,7 +136,7 @@ void stock_env::perform(const binary_action& action)
 
     logger_->info("The infomation of the account:the total value {} money {} stock number {}",
                         account_.getValue(getValue(data_, current_state_,"close")), account_.getMoney(),account_.getStockAmount());
-    logger_->info("Compare with the hold stock number{} total value {}", account_com_.getStockAmount(), account_com_.getValue(getValue(data_, current_state_,"close")));
+    logger_->info("Compare with the hold stock number {} total value {}", account_com_.getStockAmount(), account_com_.getValue(getValue(data_, current_state_,"close")));
 }
 
 void stock_env::save_state(std::ostream& output) const

@@ -18,7 +18,7 @@ public:
     void order_percent(double price, double percent);
     double getMoney() { return money_; }
     int64_t getStockAmount() { return stock_number_; }
-    double getValue(double price) { return money_+stock_number_*price; }
+    double getValue(double price) { return money_+stock_number_*price*100; }
 private: 
     std::string stock_name_;
     std::shared_ptr<spdlog::logger> logger_;

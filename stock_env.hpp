@@ -38,7 +38,16 @@ public:
 
     bool single_step() const {return true;};
 	//! writes trace information on an output stream; it is called just before the end_problem method \sa end_problem
-	void trace(std::ostream& output){output << account_path;}
+	void trace(std::string file_to_save)
+    {   
+        std::ofstream in;
+        in.open(file_to_save,std::ios::trunc);
+        in<<"account money:\t"<<account_path<<std::endl;
+        in<<"account stock number:\t"<<account_stock_num_path<<std::endl;
+        in<<"account compare money:\t"<<account_com_path<<std::endl;
+        in<<"account compare stock number:\t"<<account_com_stock_num_path<<std::endl;
+        in.close();
+    }
 
 	bool stop() const {return current_state_ == data_->size()-2;}
 	
@@ -80,9 +89,11 @@ private:
     void set_input(int64_t pos); //the pos must bigger than 0
     inline void updateAccountPath(double price)
     {
-        std::ostringstream PATH; 
-        PATH<<account_.getMoney()+account_.getStockAmount()*price<<"\t";
-        account_path += PATH.str();
+        account_path += std::to_string(account_.getMoney()+account_.getStockAmount() * price *100)+'\t';
+        account_stock_num_path += std::to_string(account_.getStockAmount())+'\t';
+
+        account_com_path += std::to_string(account_com_.getMoney()+account_com_.getStockAmount() * price *100)+'\t';
+        account_com_stock_num_path += std::to_string(account_com_.getStockAmount())+ '\t';
     }
 	
 	static bool			init;			//!< true if the class has been inited through the configuration manager
@@ -96,7 +107,12 @@ private:
     int64_t current_state_;
     std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>> data_;
     std::shared_ptr<spdlog::logger> logger_;
+
     std::string account_path;
+    std::string account_stock_num_path;
+
+    std::string account_com_path;
+    std::string account_com_stock_num_path;
 };
 
 #endif // !XCS_STOCK_ENV_HPP
