@@ -15,7 +15,7 @@
 </action::binary>
 
 <environment::stock_env>
-    stock data file = 000001.XSHE.csv
+    stock data file = /home/liu/毕业设计/code/000001.XSHE.csv
 </environment::stock_env>
 
 
@@ -36,7 +36,7 @@ crossover probability = 0.8
          fitness init = 0.01
         set size init = 1
       population init = empty
- exploration strategy = PROPORTIONAL
+ exploration strategy = RANDOM
     deletion strategy = ACCURACY-BASED
          theta delete = 20
          theta GA sub = 20
@@ -49,22 +49,3 @@ GA tournament selection = off
       tournament size = 0.4
 </classifier_system>
 
-<experiments>
-	first experiment = 0
-	number of experiments = 10
-        first problem = 0
-        number of learning problems = 200000
-	number of condensation problems = 0
-        number of test problems = 0
-	test environment = off
-	save state every = 0
-        trace experiments = off
-        save population state = on
-        save population report = on
-        save experiment state = on
-	trace time = on
-	compact mode = off
-	save statistics every = 100
-        save learning problems = on
-	maximum number of steps = 100
-</experiments>

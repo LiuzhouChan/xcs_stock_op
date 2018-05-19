@@ -456,6 +456,18 @@ void xcs_classifier_system::select_action(const t_action_selection policy, binar
 
 	switch(policy)
 	{
+		case ACTSEL_DETERMINISTIC:
+			assert(available_actions.size()>0);
+			random_shuffle(available_actions.begin(),available_actions.end());
+
+			best = available_actions.begin();
+			for(ap=available_actions.begin(); ap!=available_actions.end(); ap++)
+			{
+				if ((prediction_array[*best].payoff) < (prediction_array[*ap].payoff))
+					best = ap;
+			}
+			act = prediction_array[*best].action;
+			break;
 		//! biased action selection
 		case ACTSEL_SEMIUNIFORM:
 			assert(available_actions.size()>0);
@@ -808,8 +820,8 @@ xcs_classifier_system::step(const bool exploration_mode, const bool condensation
 	//! select the action to be performed
 	if (exploration_mode)
 		select_action(action_selection_strategy, action);
-	// else 
-	// 	select_action(ACTSEL_DETERMINISTIC, action);
+	else 
+		select_action(ACTSEL_DETERMINISTIC, action);
 
 	//! build [A]
 	build_action_set(action);
@@ -823,11 +835,11 @@ xcs_classifier_system::step(const bool exploration_mode, const bool condensation
 	environment->perform(action);
 
 	//! if the environment is single step, the system error is collected
-	if (environment->single_step())
-	{
-		double payoff = prediction_array[action.value()].payoff;
-		system_error = fabs(payoff-environment->reward());
-	}
+	// if (environment->single_step())
+	// {
+	// 	double payoff = prediction_array[action.value()].payoff;
+	// 	system_error = fabs(payoff-environment->reward());
+	// }
 
 
 	total_reward = total_reward + environment->reward();

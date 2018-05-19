@@ -42,6 +42,7 @@ typedef enum {
 
 //! action selection strategy
 typedef enum { 
+	ACTSEL_DETERMINISTIC,
 	ACTSEL_SEMIUNIFORM, 	// Uniform con prob. biased deterministico
 	ACTSEL_PROPORTIONAL, 	// Prob. proporzionale alla predizione
 } t_action_selection;
@@ -136,6 +137,10 @@ class xcs_classifier_system
 	 * methods used from the experiment manager
 	 */
 
+	void setEnv(stock_env* env)
+	{
+		this->environment=env;
+	}
 	//@{
 
 	//! defines what has to be done when a new experiment begins

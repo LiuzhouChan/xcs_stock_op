@@ -29,7 +29,7 @@ stock_env::stock_env(config_mgr2& xcs_config,std::shared_ptr<spdlog::logger> log
     stock_env::init = true;
 }
 
-void stock_env::begin_problem(const bool explore)
+void stock_env::begin_problem()
 {
     account_.addMoney(100000);
     updateAccountPath(0);

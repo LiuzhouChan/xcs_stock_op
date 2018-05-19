@@ -30,7 +30,7 @@ public:
 
     ~stock_env() {};
 
-    void begin_problem(const bool explore);
+    void begin_problem(); 
 	void end_problem() { current_state_ = data_->size()-2;};
 
 	void begin_experiment() {};

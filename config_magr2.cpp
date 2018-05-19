@@ -11,7 +11,7 @@ config_mgr2::config_mgr2(std::string const& extension)
 	file_extension = extension;
 
 	//! open the configuration file
-	std::string configFile = "confsys." + extension;
+	std::string configFile = "/home/liu/毕业设计/code/confsys." + extension;
 	std::ifstream file(configFile.c_str());
 
 	if (!file.good())
