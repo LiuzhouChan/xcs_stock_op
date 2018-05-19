@@ -87,7 +87,7 @@ void account::order_percent(double price, double percent)
         order_lots(price,lots);
     }else   // sell stock
     {
-        int lots = std::floor(stock_number_*percent);
+        int lots = std::floor(stock_number_*(-percent));
         order_lots(price, -lots);
     }
 }

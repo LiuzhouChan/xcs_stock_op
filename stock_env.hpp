@@ -55,6 +55,9 @@ public:
         set_input(current_state_);
         account_= account("000001");
         account_.addMoney(1000000);
+
+        account_com_= account("000001",spdlog::stdout_color_mt("account_com_"));
+        account_com_.addMoney(1000000);
     }
 	bool next_input()
     {
@@ -89,7 +92,7 @@ private:
 	double		current_reward;
 
 	account account_;
-
+    account account_com_;
     int64_t current_state_;
     std::shared_ptr<std::vector<std::shared_ptr<std::map<std::string, double>>>> data_;
     std::shared_ptr<spdlog::logger> logger_;

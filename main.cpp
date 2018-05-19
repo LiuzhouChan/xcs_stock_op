@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <spdlog/spdlog.h>
 
 using namespace std;
 
@@ -19,7 +20,8 @@ using namespace std;
 bool flag_verbose = false;
 
 int main(){
-    string suffix = "stock";
+    auto logger = spdlog::stdout_color_mt("main");
+    string suffix = "/home/liu/毕业设计/code/confsys.stock";
     config_mgr2	xcs_config2(suffix);
     xcs_random::set_seed(xcs_config2);
     binary_action action(xcs_config2);
@@ -45,6 +47,6 @@ int main(){
 
     environment->end_problem();
 
-    cout<<ss.str()<<endl;
+    logger->info(ss.str());
     return 0;
  }

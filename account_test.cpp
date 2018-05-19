@@ -15,6 +15,21 @@ TEST(TestAccount, order_lots)
     ASSERT_EQ(acc.getStockAmount(), 2);
 }
 
+TEST(TestAccount, order_percnet)
+{
+    account acc("Test_order_percent",spdlog::stdout_color_mt("Test_order_percent"));
+    acc.addMoney(10000);
+    acc.order_percent(1,1);
+    ASSERT_EQ(acc.getStockAmount(),100);
+    ASSERT_FLOAT_EQ(acc.getMoney(),0);
+    
+    acc.order_percent(1,-0.5);
+    EXPECT_EQ(acc.getStockAmount(),50);
+
+    acc.order_percent(1,0.5);
+    EXPECT_EQ(acc.getStockAmount(),75);
+}
+
 TEST(TestAccount, order_target_percent)
 {
     account acc("Test_order_target_percent",spdlog::stdout_color_mt("Test_order_target_percent"));

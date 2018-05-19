@@ -20,8 +20,8 @@
 
 
 <classifier_system>
-      population size = 500
-        learning rate = 0.2
+      population size = 200
+        learning rate = 0.3
       discount factor = 0.7
     covering strategy = action_based 0
   discovery component = on
@@ -39,8 +39,8 @@ crossover probability = 0.8
  exploration strategy = RANDOM
     deletion strategy = ACCURACY-BASED
          theta delete = 20
-         theta GA sub = 20
-         theta AS sub = 100
+         theta GA sub = 50
+         theta AS sub = 50
        GA subsumption = on
        AS subsumption = off
    update error first = on
