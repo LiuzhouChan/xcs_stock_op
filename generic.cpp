@@ -65,18 +65,12 @@ generic::operator std::string() const
 
 generic::operator double() const 
 {
-#ifdef __DEBUG__
-	std::cout << ">>STRING <" << value_.c_str() << "> TO " << atof(value_.c_str()) << std::endl;
-#endif
 	return atof(value_.c_str());
 }
 
 
 generic::operator long() const 
 {
-#ifdef __DEBUG__
-	std::cout << ">>STRING <" << value_.c_str() << "> TO " << atol(value_.c_str()) << std::endl;
-#endif
 	return atol(value_.c_str());
 }
 
@@ -85,8 +79,5 @@ generic::operator unsigned long() const
 	std::stringstream s(value_);
 	unsigned long v;
 	s>>v;
-#ifdef __DEBUG__
-	std::cout << ">>STRING <" << value_.c_str() << "> TO " << v << std::endl;
-#endif
 	return v;
 }

@@ -19,8 +19,14 @@ using namespace std;
 
 bool flag_verbose = false;
 
+
+
 int main(){
-    auto logger = spdlog::stdout_color_mt("main");
+        //  discovery component = on
+    //  exploration strategy = RANDOM
+    //  exploration mode = true
+    spdlog::set_level(spdlog::level::off);  // if want to see the log, comment this line    
+    auto logger = spdlog::stdout_color_mt("train");
     string suffix = "/home/liu/毕业设计/code/confsys.stock";
     config_mgr2	xcs_config2(suffix);
     xcs_random::set_seed(xcs_config2);
@@ -37,14 +43,22 @@ int main(){
     environment->begin_problem(); 
 
     do{
-        xcs->step(true,false);
+        xcs->step(true,false);  // the first arg set to update the 
     }while(environment->next_input());
 
-    environment->trace("stock_account_info.txt");
+    // prediction error fitness actionset_size experience numerosity
+    ofstream populationfile;
+    populationfile.open("classifiers.txt",ios::trunc);
+    xcs->save_population(populationfile);
+    populationfile.close();
+
+
+    environment->trace("stock_account_info/stock_account_info_train.txt");
 
     xcs->end_problem();
 
     environment->end_problem();
-
+    delete xcs;
+    delete environment;
     return 0;
  }
