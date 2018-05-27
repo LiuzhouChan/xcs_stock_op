@@ -16,7 +16,7 @@ set(CMAKE_CXX_COMPILER "clang++")
 set(CMAKE_CXX_FLAGS "-std=c++11 -pthread")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-add_executable(xcs_stock_op_project_tarin account.cpp binary_action.cpp condition.cpp  train_main.cpp util.cpp xcs_classifier_system.cpp 
+add_executable(xcs_stock_op_project_train account.cpp binary_action.cpp condition.cpp  train_main.cpp util.cpp xcs_classifier_system.cpp 
 binary_input.cpp config_magr2.cpp generic.cpp stock_env.cpp xcs_classifier.cpp xcs_random.cpp)
 
 add_executable(xcs_stock_op_project_test account.cpp binary_action.cpp condition.cpp  test_main.cpp util.cpp xcs_classifier_system.cpp 

@@ -504,7 +504,7 @@ void xcs_classifier_system::update_set(const double P, t_classifier_set &action_
 		set_size += (**clp).numerosity;
 		fitness_sum += (**clp).fitness;	//! sums up classifier fitness for gradient descent
 	}
-
+	// cout<<action_set.size()<<"  "<<population.size()<<endl;
 	for(clp=action_set.begin(); clp!= action_set.end(); clp++)
 	{
 		//! prediction error is updated first if required (i.e., flag_error_update is true)
@@ -590,7 +590,9 @@ void xcs_classifier_system::update_fitness(t_classifier_set &action_set)
 
 	for(as = action_set.begin(), rp=raw_accuracy.begin(); as!=action_set.end(); as++,rp++)
 	{
+		// cout<<(**as).fitness<<"\t";
 		(**as).fitness += learning_rate*((*rp)/accuracy_sum - (**as).fitness);
+		// cout<<(**as).fitness<<endl;
 	}
 
 }
@@ -862,7 +864,8 @@ xcs_classifier_system::step(const bool exploration_mode, const bool condensation
 		}
 
 		P = previous_reward + discount_factor * max_prediction;
-
+		// printf("previous_reward:%f\t discount_factor:%f\t max_prediction:%f\n",previous_reward, discount_factor,max_prediction);
+	
 		//! use P to update the classifiers parameters
 		update_set(P, previous_action_set);
 	}
@@ -882,7 +885,7 @@ xcs_classifier_system::step(const bool exploration_mode, const bool condensation
 		genetic_algorithm(action_set, previous_input, condensationMode);
 		stats.no_ga++;
 	}
-	
+	// cout<< P <<endl;
 	//!	[A]-1 <= [A]
 	//!	r-1 <= r
 	previous_action_set = action_set;
@@ -1646,7 +1649,8 @@ xcs_classifier_system::select_delete_rw(t_classifier_set &set)
 	}
 
 	average_fitness /= ((double) size);
-
+	// cout<<"set size: "<<set.size()<<endl;
+	// cout<<"avfitness: "<<average_fitness<<endl;
 	vote_sum = 0;
 
 	unsigned long	el = 0;		//! set element
@@ -1673,7 +1677,7 @@ xcs_classifier_system::select_delete_rw(t_classifier_set &set)
 	for(sel=0; ((sel<select.size()) && (random>select[sel])); sel++,pp++);
 
 	assert(sel<select.size());
-	
+	// cout<<(*pp)->id()<<endl;
 	return pp;
 }
 

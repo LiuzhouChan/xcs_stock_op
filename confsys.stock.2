@@ -4,7 +4,7 @@
 
 <condition::ternary>
 	condition size = 5
-	dontcare probability = 0.5
+	dontcare probability = 0.1
 	mutate with dontcare = on
 	crossover method = 1
 	mutation method = 2
@@ -15,16 +15,16 @@
 </action::binary>
 
 <environment::stock_env>
-    stock data file = /home/liu/毕业设计/code/000002.XSHE.csv
+    stock data file = /home/liu/毕业设计/code/600082.XSHG.csv
 </environment::stock_env>
 
 
 <classifier_system>
-      population size = 50
-        learning rate = 0.2
+      population size = 100
+        learning rate = 0.5
       discount factor = 0.7
     covering strategy = action_based 0
-  discovery component = on
+  discovery component = off
              theta GA = 10
 crossover probability = 0.1
  mutation probability = 0.04
@@ -32,20 +32,20 @@ crossover probability = 0.1
                    vi = 5
                 alpha = 0.1
       prediction init = 10.0
-           error init = 0.0
-         fitness init = 0.01
-        set size init = 1
+           error init = 0.1
+         fitness init = 1
+        set size init = 10
       population init = load:/home/liu/毕业设计/code/classifiers.txt
  exploration strategy = RANDOM
     deletion strategy = ACCURACY-BASED
          theta delete = 20
          theta GA sub = 20
          theta AS sub = 50
-       GA subsumption = on
-       AS subsumption = off
+       GA subsumption = on 
+       AS subsumption = on 
    update error first = on
               use MAM = on
-GA tournament selection = off
-      tournament size = 0.4
+GA tournament selection = on
+      tournament size = 0.3
 </classifier_system>
 

@@ -118,11 +118,11 @@ void stock_env::perform(const binary_action& action)
     
     if(percent != 0 && buy)
     {
-        current_reward = diff * percent * account_.getMoney()/getValue(data_, current_state_,"close");
+        current_reward = diff * percent * account_.getMoney()/getValue(data_, current_state_,"close")/100000;
     }
     else if(percent != 0 && !buy)
     {
-        current_reward = -diff*percent*account_.getStockAmount()*100;
+        current_reward = -diff*percent*account_.getStockAmount()/1000;
     }
 
     if(!buy) target_percnet = -target_percnet;
