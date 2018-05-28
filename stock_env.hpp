@@ -67,6 +67,10 @@ public:
 
         account_com_= account("000001",spdlog::stdout_color_mt("account_com_"));
         account_com_.addMoney(1000000);
+        account_path.clear();
+        account_com_path.clear();
+        account_stock_num_path.clear();
+        account_com_stock_num_path.clear();
     }
 	bool next_input()
     {
